@@ -9,7 +9,7 @@ class WeatherTimeTool:
     def __init__(self, model):
         self.model = model
         self.location_dictionary = None
-        self.weather_time_tool = Tool(
+        self.tool = Tool(
             name = "Weather Time Tool",
             func=self.invoke,
             description="""Useful for when you want to find the weather information or time information for a given location mentioned by the user.
