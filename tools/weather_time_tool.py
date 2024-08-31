@@ -28,7 +28,7 @@ class WeatherTimeTool:
             (3)Weather the User Query is asking for the Weather or Time/Day.
 
             
-        If the User Query mentions the weather/time for a Country, dont return the City or State or Prefecture and return an empty string.
+        If the User Query mentions the to find the weather/time for just a Country, return the Country and the Capital City/State/Prefecture of that Country.
         If the User Query mentions the City/State/Prefecture,  Find the country from which these Cities/States/Prefectures are from and return the Country and the City/State/Prefecture.
 
         RULES FOR RETURNING THE COUNTRY
@@ -94,12 +94,13 @@ class WeatherTimeTool:
         (1)"What is the time in New York right now right here",
         {{'country':'usa', 'sub-location':'new-york', 'information-type':'worldclock'}}
         (2)"Yo boss, What would be the weather in United States"
-        {{'country':'usa', 'sub-location':'', 'information-type':'weather'}}
+        {{'country':'usa', 'sub-location':'washington-dc', 'information-type':'weather'}}
         (3)"What would be the time in the other side of the world that is Tokyo"
         {{'country':'japan', 'sub-location':'tokyo', 'information-type':'worldclock'}}
         (4)"Is it cloudy right now in United Emirates"
-        {{'country':'united-arab-emirates', 'sub-location':'', 'information-type':'weather'}}
-
+        {{'country':'united-arab-emirates', 'sub-location':'abu-dhabi', 'information-type':'weather'}}
+        (5)"You bruv, what is the time in Japan right now maaann?"
+        {{'country':'japan', 'sub-location':'tokyo', 'information-type':'worldclock'}}
 
         Now Return the Country, the City/State/Prefecture in the dictionary format for the given query.
         Query: {query}
@@ -113,7 +114,7 @@ class WeatherTimeTool:
 
         
     def fetch_time_info(self):
-
+        print(self.location_dictionary)
         url = f"https://www.timeanddate.com/{self.location_dictionary['information-type']}/{self.location_dictionary['country']}/{self.location_dictionary['sub-location']}"
         response = requests.get(url)
         soup = BeautifulSoup(response.content, 'html.parser')
