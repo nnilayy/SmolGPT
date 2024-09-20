@@ -14,8 +14,8 @@
   .settings-container {
     background-color: #2a2a2a;
     color: #ffffff;
-    width: 600px;
-    border-radius: 8px;
+    width: 700px;
+    border-radius: 10px;
     overflow: hidden;
     font-family: Arial, sans-serif;
   }
@@ -63,12 +63,16 @@
     text-align: left;
     cursor: pointer;
     border-radius: 4px;
+    transition: background-color 0.3s ease;
   }
   
   .sidebar-button.active {
     background-color: #3a3a3a;
   }
   
+  .sidebar-button:hover {
+    background-color: #333333;
+  }
   .sidebar-button .icon {
     margin-right: 8px;
   }
