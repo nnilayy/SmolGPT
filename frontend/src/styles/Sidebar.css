@@ -15,9 +15,30 @@
     left: 0; /* Move into view */
   }
   
+  .menu-svg{
+    width: 35px;
+    height: 35px;
+    padding-left:10px;
+    color: rgb(212, 212, 212);
+    filter:invert(0.8);
+    transition: filter 0.3s ease;
+  }
+  .menu-svg:hover{
+    filter: invert(1) drop-shadow(0 0 10px rgb(155, 155, 155));
+    cursor: pointer;
+  }
+
+  .menu-icon{
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 10px;
+    padding-top: 10px;
+    color: white;
+  }
+
   .sidebar-content {
     color: var(--sidebar-text-color);
-    padding: 20px;
+    padding: 10px;
   }
   
   .close-btn {
