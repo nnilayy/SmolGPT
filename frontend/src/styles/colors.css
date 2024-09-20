@@ -55,6 +55,11 @@
     --settings-sidebar-internal-slider-background-color: #3a3a3a;
     --settings-sidebar-internal-slider-thumb-color: white;
     --settings-sidebar-internal-slider-checked-background-color: #2196F3;
+
+    --settings-api-keys-copy-to-clipboard-color: invert(1);
+    --settings-api-keys-copy-to-clipboard-color-active: invert(1) drop-shadow(0 0 50px rgb(255, 255, 255));
+    --settings-api-keys-input-border-color: #56565667;
+    --settings-api-keys-input-border-color-focus: #cccccc;
 }
 
 .light-theme {
@@ -113,6 +118,11 @@
     --settings-sidebar-internal-slider-background-color: #909090;
     --settings-sidebar-internal-slider-thumb-color: rgb(255, 255, 255);
     --settings-sidebar-internal-slider-checked-background-color: #2196F3;
+
+    --settings-api-keys-copy-to-clipboard-color: invert(0);
+    --settings-api-keys-copy-to-clipboard-color-active: invert(0) drop-shadow(0 0 10px black);
+    --settings-api-keys-input-border-color: #d5d5d5c2;
+    --settings-api-keys-input-border-color-focus: #868686;
 }
 
 /* Dark Theme */
@@ -173,4 +183,8 @@
     --settings-sidebar-internal-slider-thumb-color: white;
     --settings-sidebar-internal-slider-checked-background-color: #2196F3;
 
+    --settings-api-keys-copy-to-clipboard-color: invert(1);
+    --settings-api-keys-copy-to-clipboard-color-active: invert(1) drop-shadow(0 0 50px rgb(255, 255, 255));
+    --settings-api-keys-input-border-color: #56565667;
+    --settings-api-keys-input-border-color-focus: #cccccc;
 }

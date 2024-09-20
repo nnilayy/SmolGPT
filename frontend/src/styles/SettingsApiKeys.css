@@ -26,7 +26,7 @@
 .api-key-input {
   flex: 1;
   padding: 8px;
-  border: 2px solid rgba(70, 70, 70, 0.288);
+  border: 2px solid var(--settings-api-keys-input-border-color);
   border-radius: 10px;
   background-color: var(--settings-input-background-color);
   color: var(--settings-input-text-color);
@@ -35,7 +35,7 @@
 }
 
 .api-key-input:focus {
-  border: 2px solid rgb(91, 91, 91);
+  border: 2px solid var(--settings-api-keys-input-border-color-focus);
 }
 
 /* Remove button styles since we're replacing them with images */
@@ -50,7 +50,7 @@
   height: 30px;
   margin-left: 10px;
   cursor: pointer;
-  filter: invert(1);
+  filter: var(--settings-api-keys-copy-to-clipboard-color);
   opacity: 0.5; /* Optional default opacity */
   transition: opacity 0.3s, filter 0.3s ease;
 }
@@ -59,7 +59,7 @@
   opacity: 1; /* Optional hover effect */
 }
 .icon-button:active {
-    filter: invert(1) drop-shadow(0 0 10px white);
+    filter: var(--settings-api-keys-copy-to-clipboard-color-active);
   }
 
 .visibility-icon {
