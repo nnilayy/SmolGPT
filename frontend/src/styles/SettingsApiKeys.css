@@ -71,6 +71,20 @@
   /* Additional styles for copy icon if needed */
 }
 
+.save-button {
+  background-color: #28a745; /* Green color */
+  color: #ffffff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.save-button:hover {
+  background-color: #218838; /* Darker green on hover */
+}
 /* Scrollbar styles */
 .api-keys-container::-webkit-scrollbar {
   width: 6px;

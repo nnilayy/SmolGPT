@@ -1,19 +1,51 @@
 // src/SettingsComponents/SettingsApiKeys.js
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../styles/SettingsApiKeys.css';
 import CopyToClipboard from '../icons/copy-to-clipboard.png';
 import EyeOpenIcon from '../icons/eye-open.png';
 import EyeClosedIcon from '../icons/eye-close.png';
 
 const SettingsApiKeys = () => {
-  // Initialize state for 10 API keys
-  const [apiKeys, setApiKeys] = useState(
-    Array.from({ length: 10 }, (_, index) => ({
-      name: `API Key ${index + 1}`,
-      value: '',
-      hidden: true,
-    }))
-  );
+  const [apiKeys, setApiKeys] = useState([]);
+
+  useEffect(() => {
+    // Fetch API keys from the backend when the component mounts
+    axios
+      .get('http://localhost:8000/get_api_keys')
+      .then((response) => {
+        if (response.data && response.data.length > 0) {
+          // Update the apiKeys state with the data from the backend
+          setApiKeys(
+            response.data.map((key, index) => ({
+              name: key.name || `API Key ${index + 1}`,
+              value: key.value || '',
+              hidden: true,
+            }))
+          );
+        } else {
+          // Initialize with empty API keys if backend returns no data
+          setApiKeys(
+            Array.from({ length: 10 }, (_, index) => ({
+              name: `API Key ${index + 1}`,
+              value: '',
+              hidden: true,
+            }))
+          );
+        }
+      })
+      .catch((error) => {
+        console.error('Error fetching API keys:', error);
+        // Initialize with empty API keys if there's an error
+        setApiKeys(
+          Array.from({ length: 10 }, (_, index) => ({
+            name: `API Key ${index + 1}`,
+            value: '',
+            hidden: true,
+          }))
+        );
+      });
+  }, []);
 
   const handleValueChange = (index, newValue) => {
     setApiKeys((prevKeys) =>
@@ -33,15 +65,23 @@ const SettingsApiKeys = () => {
 
   const copyToClipboard = (value) => {
     if (value) {
-      navigator.clipboard.writeText(value).then(
-        () => {
-          // Successfully copied to clipboard
-        },
-        (err) => {
-          console.error('Could not copy text: ', err);
-        }
-      );
+      navigator.clipboard.writeText(value).catch((err) => {
+        console.error('Could not copy text: ', err);
+      });
     }
+  };
+
+  const saveApiKeys = () => {
+    // Send the API keys to the backend
+    axios
+      .post('http://localhost:8000/save_api_keys', apiKeys)
+      .then((response) => {
+        alert('API Keys saved on backend successfully.');
+      })
+      .catch((error) => {
+        console.error('Error saving API keys:', error);
+        alert('Error saving API Keys.');
+      });
   };
 
   return (
@@ -57,7 +97,7 @@ const SettingsApiKeys = () => {
               className="api-key-input"
             />
             <img
-              src={key.hidden ? EyeClosedIcon: EyeOpenIcon}
+              src={key.hidden ? EyeClosedIcon : EyeOpenIcon}
               alt={key.hidden ? 'Show API Key' : 'Hide API Key'}
               className="icon-button visibility-icon"
               onClick={() => toggleVisibility(index)}
@@ -71,6 +111,9 @@ const SettingsApiKeys = () => {
           </div>
         </div>
       ))}
+      <button className="save-button" onClick={saveApiKeys}>
+        Save
+      </button>
     </div>
   );
 };

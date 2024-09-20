@@ -1,5 +1,6 @@
 // src/Chat.js
 import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
 import './styles/Chat.css';
 
 function Chat() {
@@ -19,15 +20,6 @@ function Chat() {
     scrollToBottom();
   }, [messages]);
 
-  useEffect(() => {
-    // Adjust messages container height when component mounts
-    const messagesContainer = document.querySelector('.messages-container');
-    const inputContainer = document.querySelector('.input-container');
-    if (messagesContainer && inputContainer) {
-      messagesContainer.style.height = `calc(100% - ${inputContainer.offsetHeight}px)`;
-    }
-  }, []);
-
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
     if (textarea) {
@@ -36,24 +28,30 @@ function Chat() {
     }
   };
 
-  const handleSend = () => {
+  const handleSend = async () => {
     if (input.trim() !== '') {
-      setMessages([...messages, { sender: 'user', text: input }]);
+      const userMessage = { sender: 'user', text: input };
+      setMessages([...messages, userMessage]);
       setInput('');
       if (textareaRef.current) {
         textareaRef.current.style.height = '25px';
       }
 
-      // Simulate AI response
-      setTimeout(() => {
-        setMessages((prevMessages) => [
-          ...prevMessages,
-          {
-            sender: 'ai',
-            text: 'Thank you for your message! Here is a detailed response that might take up more space.',
-          },
-        ]);
-      }, 500);
+      try {
+        // Send the user's message to the backend and get AI response
+        const response = await axios.post('http://localhost:8000/chat', {
+          message: input,
+        });
+        const aiMessage = { sender: 'ai', text: response.data.response };
+        setMessages((prevMessages) => [...prevMessages, aiMessage]);
+      } catch (error) {
+        console.error('Error fetching AI response:', error);
+        const errorMessage = {
+          sender: 'ai',
+          text: 'Sorry, there was an error processing your message.',
+        };
+        setMessages((prevMessages) => [...prevMessages, errorMessage]);
+      }
     }
   };
 
@@ -109,7 +107,6 @@ function Chat() {
         />
         <button onClick={handleSend}>Send</button>
       </div>
-      
     </div>
   );
 }
