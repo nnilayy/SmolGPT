@@ -1,3 +1,5 @@
+@import './colors.css';
+
 .App {
   display: flex;
   flex-direction: column;

@@ -13,6 +13,9 @@
     --sidebar-close-btn-background-color: #444;
     --sidebar-close-btn-text-color: white;
 
+    --sidebar-menu-svg-filter: invert(0.8);
+    --sidebar-menu-svg-filter-hover: invert(1) drop-shadow(0 0 10px rgb(173, 160, 160));
+
     --chat-container-border-color: transparent;
     --chat-input-container-border-color: #606060;
 
@@ -30,13 +33,144 @@
     --input-container-background-color: #2f2f2f;
     --input-container-textarea-border-color: transparent;
     --input-container-textarea-background-color: transparent;
-
+    --input-container-textarea-text-color: white;
+ 
     --footer-background-color: #414141;
     --footer-text-color: white;
-
 
     --scrollbar-track: #1c1c1c; /* Very Dark Gray */
     --scrollbar-thumb: #404040; /* White */
     --scrollbar-thumb-hover: #39ff14; /* Neon Green */
+
+    --settings-overlay-background-color: rgba(0, 0, 0, 0.5);
+    --settings-container-background-color: #2a2a2a;
+    --settings-container-text-color: #ffffff;
+    --settings-close-btn-color: #ffffff;
+    --settings-middle-line-colors: #3a3a3a;
+    --settings-sidebar-text-color: #ffffff;
+    --settings-sidebar-button-active-background-color: #3a3a3a;
+    --settings-sidebar-button-hover-background-color: #333333;
+    --settings-sidebar-internal-button-background-color: #3a3a3a;
+    --settings-sidebar-internal-button-text-color: #ffffff;
+    --settings-sidebar-internal-slider-background-color: #3a3a3a;
+    --settings-sidebar-internal-slider-thumb-color: white;
+    --settings-sidebar-internal-slider-checked-background-color: #2196F3;
+}
+
+.light-theme {
+    --app-background-color: #ffffff;
+
+    --navbar-background-color: #ffffff;
+    --navbar-text-color: black;
+    --navbar-profile-photo-background-color: #e0e0e0;
+    --navbar-profile-photo-border-color: #cccccc;
+
+    --sidebar-background-color: #f0f0f0;
+    --sidebar-box-shadow-color: rgba(0,0,0,0.1);
+    --sidebar-text-color: black;
+    --sidebar-close-btn-background-color: #e0e0e0;
+    --sidebar-close-btn-text-color: black;
+
+    --sidebar-menu-svg-filter: invert(0.5);
+    --sidebar-menu-svg-filter-hover: invert(0) drop-shadow(0 0 10px rgb(0, 0, 0));
+
+    --chat-container-border-color: transparent;
+    --chat-input-container-border-color: #cccccc;
+
+    --chat-message-container-background-color: transparent;
+    --message-container-background-color: #f9f9f9;
+
+    --message-circle-user-background-color: #d4d4d4;
+    --message-user-background-color: #e0e0e0;
+    --message-user-text-color: black;
+
+    --message-circle-ai-background-color: #c4c4c4;
+    --message-ai-background-color: #d0d0d0;
+    --message-ai-text-color: black;
+    
+    --input-container-background-color: #e0e0e0;
+    --input-container-textarea-border-color: #cccccc;
+    --input-container-textarea-background-color: #ffffff;
+    --input-container-textarea-text-color: black;
+
+    --footer-background-color: #e0e0e0;
+    --footer-text-color: black;
+
+    --scrollbar-track: #f0f0f0;
+    --scrollbar-thumb: #c0c0c0;
+    --scrollbar-thumb-hover: #a0a0a0;
+
+    --settings-overlay-background-color: rgba(0, 0, 0, 0.5);
+    --settings-container-background-color: #e7e7e7;
+    --settings-container-text-color: #000000;
+    --settings-close-btn-color: #000000;
+    --settings-middle-line-colors: #d5d5d5;
+    --settings-sidebar-text-color: #000000;
+    --settings-sidebar-button-active-background-color: #b7b7b7a1;
+    --settings-sidebar-button-hover-background-color: #b7b7b7a1;
+    --settings-sidebar-internal-button-background-color: #cfcfcf;
+    --settings-sidebar-internal-button-text-color: #000000;
+    --settings-sidebar-internal-slider-background-color: #909090;
+    --settings-sidebar-internal-slider-thumb-color: rgb(255, 255, 255);
+    --settings-sidebar-internal-slider-checked-background-color: #2196F3;
+}
+
+/* Dark Theme */
+.dark-theme {
+    --app-background-color: #222222;
+
+    --navbar-background-color: #222222;
+    --navbar-text-color: white;
+    --navbar-profile-photo-background-color: #272742;
+    --navbar-profile-photo-border-color: rgb(0, 0, 0);
+
+    --sidebar-background-color: #222222;
+    --sidebar-box-shadow-color: rgba(0,0,0,0.5);
+    --sidebar-text-color: white;
+    --sidebar-close-btn-background-color: #444;
+    --sidebar-close-btn-text-color: white;
+ 
+    --sidebar-menu-svg-filter: invert(0.8);
+    --sidebar-menu-svg-filter-hover: invert(1) drop-shadow(0 0 10px rgb(173, 160, 160));
+
+    --chat-container-border-color: transparent;
+    --chat-input-container-border-color: #606060;
+
+    --chat-message-container-background-color: transparent;
+    --message-container-background-color: #f9f9f9;
+
+    --message-circle-user-background-color: #646464;
+    --message-user-background-color: #646464;
+    --message-user-text-color: white;
+
+    --message-circle-ai-background-color: #454545;
+    --message-ai-background-color: #454545;
+    --message-ai-text-color: rgb(255, 255, 255);
+    
+    --input-container-background-color: #2f2f2f;
+    --input-container-textarea-border-color: transparent;
+    --input-container-textarea-background-color: transparent;
+    --input-container-textarea-text-color: white;
+
+    --footer-background-color: #414141;
+    --footer-text-color: white;
+
+    --scrollbar-track: #1c1c1c;
+    --scrollbar-thumb: #404040;
+    --scrollbar-thumb-hover: #39ff14;
+
+    --settings-overlay-background-color: rgba(0, 0, 0, 0.5);
+    --settings-container-background-color: #2a2a2a;
+    --settings-container-text-color: #ffffff;
+    --settings-close-btn-color: #ffffff;
+    --settings-middle-line-colors: #3a3a3a;
+    --settings-sidebar-text-color: #ffffff;
+    --settings-sidebar-button-active-background-color: #3a3a3a;
+    --settings-sidebar-button-hover-background-color: #333333;
+    --settings-sidebar-internal-button-background-color: #3a3a3a;
+    --settings-sidebar-internal-button-text-color: #ffffff;
+    --settings-sidebar-internal-slider-background-color: #3a3a3a;
+    --settings-sidebar-internal-slider-thumb-color: white;
+    --settings-sidebar-internal-slider-checked-background-color: #2196F3;
 
 }

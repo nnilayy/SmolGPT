@@ -1,18 +1,40 @@
+// src/Settings.js
 import React, { useState } from 'react';
 import './styles/Settings.css';
 
-const Settings = ({ isOpen, toggleSettings }) => {
+// Import your subsection components
+import SettingsGeneral from './SettingsComponents/SettingsGeneral';
+import SettingsPersonalization from './SettingsComponents/SettingsPersonalization';
+import SettingsSpeech from './SettingsComponents/SettingsSpeech';
+import SettingsDataControls from './SettingsComponents/SettingsDataControls';
+import SettingsBuilderProfile from './SettingsComponents/SettingsBuilderProfile';
+import SettingsConnectedApps from './SettingsComponents/SettingsConnectedApps';
+import SettingsSecurity from './SettingsComponents/SettingsSecurity';
+
+const Settings = ({ isOpen, toggleSettings, theme, setTheme }) => {
   const [activeSection, setActiveSection] = useState('General');
-  const [theme, setTheme] = useState('System');
+
+  // Remove theme state from here
+  // const [theme, setTheme] = useState('System');
   const [showCode, setShowCode] = useState(false);
   const [language, setLanguage] = useState('Auto-detect');
 
-  // New state variables for other sections
+  // State variables for 'Personalization' section
   const [fontSize, setFontSize] = useState('Medium');
+
+  // State variables for 'Speech' section
   const [voiceType, setVoiceType] = useState('Default');
+
+  // State variables for 'Data controls' section
   const [dataRetention, setDataRetention] = useState('30 days');
+
+  // State variables for 'Builder profile' section
   const [profileVisibility, setProfileVisibility] = useState('Public');
+
+  // State variables for 'Connected apps' section
   const [connectedApps, setConnectedApps] = useState([]);
+
+  // State variables for 'Security' section
   const [twoFactorAuth, setTwoFactorAuth] = useState(false);
 
   if (!isOpen) return null;
@@ -21,107 +43,73 @@ const Settings = ({ isOpen, toggleSettings }) => {
     switch (activeSection) {
       case 'General':
         return (
-          <>
-            <div className="setting-item">
-              <span>Theme</span>
-              <select value={theme} onChange={(e) => setTheme(e.target.value)}>
-                <option>System</option>
-                <option>Light</option>
-                <option>Dark</option>
-              </select>
-            </div>
-            <div className="setting-item">
-              <span>Always show code when using data analyst</span>
-              <label className="switch">
-                <input
-                  type="checkbox"
-                  checked={showCode}
-                  onChange={() => setShowCode(!showCode)}
-                />
-                <span className="slider round"></span>
-              </label>
-            </div>
-            <div className="setting-item">
-              <span>Language</span>
-              <select value={language} onChange={(e) => setLanguage(e.target.value)}>
-                <option>Auto-detect</option>
-                <option>English</option>
-                <option>Spanish</option>
-                <option>French</option>
-              </select>
-            </div>
-          </>
+          <SettingsGeneral
+            theme={theme}
+            setTheme={setTheme}
+            showCode={showCode}
+            setShowCode={setShowCode}
+            language={language}
+            setLanguage={setLanguage}
+          />
         );
       case 'Personalization':
         return (
-          <div className="setting-item">
-            <span>Font Size</span>
-            <select value={fontSize} onChange={(e) => setFontSize(e.target.value)}>
-              <option>Small</option>
-              <option>Medium</option>
-              <option>Large</option>
-            </select>
-          </div>
+          <SettingsPersonalization
+            fontSize={fontSize}
+            setFontSize={setFontSize}
+          />
         );
       case 'Speech':
         return (
-          <div className="setting-item">
-            <span>Voice Type</span>
-            <select value={voiceType} onChange={(e) => setVoiceType(e.target.value)}>
-              <option>Default</option>
-              <option>Male</option>
-              <option>Female</option>
-            </select>
-          </div>
+          <SettingsSpeech
+            voiceType={voiceType}
+            setVoiceType={setVoiceType}
+          />
         );
       case 'Data controls':
         return (
-          <div className="setting-item">
-            <span>Data Retention</span>
-            <select value={dataRetention} onChange={(e) => setDataRetention(e.target.value)}>
-              <option>30 days</option>
-              <option>60 days</option>
-              <option>90 days</option>
-            </select>
-          </div>
+          <SettingsDataControls
+            dataRetention={dataRetention}
+            setDataRetention={setDataRetention}
+          />
         );
       case 'Builder profile':
         return (
-          <div className="setting-item">
-            <span>Profile Visibility</span>
-            <select value={profileVisibility} onChange={(e) => setProfileVisibility(e.target.value)}>
-              <option>Public</option>
-              <option>Private</option>
-              <option>Friends Only</option>
-            </select>
-          </div>
+          <SettingsBuilderProfile
+            profileVisibility={profileVisibility}
+            setProfileVisibility={setProfileVisibility}
+          />
         );
       case 'Connected apps':
         return (
-          <div className="setting-item">
-            <span>Connected Apps</span>
-            <button onClick={() => setConnectedApps([...connectedApps, 'New App'])}>
-              Add New App
-            </button>
-          </div>
+          <SettingsConnectedApps
+            connectedApps={connectedApps}
+            setConnectedApps={setConnectedApps}
+          />
         );
       case 'Security':
         return (
-          <div className="setting-item">
-            <span>Two-Factor Authentication</span>
-            <label className="switch">
-              <input
-                type="checkbox"
-                checked={twoFactorAuth}
-                onChange={() => setTwoFactorAuth(!twoFactorAuth)}
-              />
-              <span className="slider round"></span>
-            </label>
-          </div>
+          <SettingsSecurity
+            twoFactorAuth={twoFactorAuth}
+            setTwoFactorAuth={setTwoFactorAuth}
+          />
         );
       default:
         return null;
     }
+  };
+
+  const getIconForSection = (section) => {
+    const icons = {
+      'General': '️',
+      'Personalization': '',
+      'Speech': '️',
+      'Data controls': '',
+      'Builder profile': '',
+      'Connected apps': '',
+      'Security': '',
+    };
+    return icons[section] || '';
   };
 
   return (
@@ -133,7 +121,15 @@ const Settings = ({ isOpen, toggleSettings }) => {
         </div>
         <div className="settings-content">
           <div className="settings-sidebar">
-            {['General', 'Personalization', 'Speech', 'Data controls', 'Builder profile', 'Connected apps', 'Security'].map((section) => (
+            {[
+              'General',
+              'Personalization',
+              'Speech',
+              'Data controls',
+              'Builder profile',
+              'Connected apps',
+              'Security',
+            ].map((section) => (
               <button
                 key={section}
                 className={`sidebar-button ${activeSection === section ? 'active' : ''}`}
@@ -150,19 +146,6 @@ const Settings = ({ isOpen, toggleSettings }) => {
       </div>
     </div>
   );
-};
-
-const getIconForSection = (section) => {
-  const icons = {
-    'General': '⚙️',
-    'Personalization': '👤',
-    'Speech': '🔊',
-    'Data controls': '🔒',
-    'Builder profile': '📄',
-    'Connected apps': '🔗',
-    'Security': '🛡️'
-  };
-  return icons[section] || '⚙️';
 };
 
 export default Settings;

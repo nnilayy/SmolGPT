@@ -1,4 +1,6 @@
 /* src/Navbar.css */
+@import './colors.css';
+
 .navbar {
     display: flex;
     justify-content: space-between;

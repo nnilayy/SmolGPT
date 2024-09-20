@@ -1,3 +1,5 @@
+@import './colors.css';
+
 .sidebar {
     width: 250px;
     position: fixed;
@@ -19,12 +21,11 @@
     width: 35px;
     height: 35px;
     padding-left:10px;
-    color: rgb(212, 212, 212);
-    filter:invert(0.8);
+    filter:var(--sidebar-menu-svg-filter);
     transition: filter 0.3s ease;
   }
   .menu-svg:hover{
-    filter: invert(1) drop-shadow(0 0 10px rgb(155, 155, 155));
+    filter: var(--sidebar-menu-svg-filter-hover); 
     cursor: pointer;
   }
 
@@ -33,7 +34,6 @@
     justify-content: flex-end;
     padding-right: 10px;
     padding-top: 10px;
-    color: white;
   }
 
   .sidebar-content {

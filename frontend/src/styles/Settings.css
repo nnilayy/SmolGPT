@@ -1,10 +1,12 @@
+@import './colors.css';
+
 .settings-overlay {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: var(--settings-overlay-background-color);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,8 +14,8 @@
   }
   
   .settings-container {
-    background-color: #2a2a2a;
-    color: #ffffff;
+    background-color: var(--settings-container-background-color);
+    color: var(--settings-container-text-color);
     width: 700px;
     border-radius: 10px;
     overflow: hidden;
@@ -25,7 +27,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 16px;
-    border-bottom: 1px solid #3a3a3a;
+    border-bottom: 1px solid var(--settings-middle-line-colors);
   }
   
   .settings-header h2 {
@@ -36,7 +38,7 @@
   .close-button {
     background: none;
     border: none;
-    color: #ffffff;
+    color: var(--settings-close-btn-color);
     font-size: 24px;
     cursor: pointer;
   }
@@ -48,7 +50,7 @@
   .settings-sidebar {
     width: 200px;
     padding: 16px;
-    border-right: 1px solid #3a3a3a;
+    border-right: 1px solid var(--settings-middle-line-colors);
   }
   
   .sidebar-button {
@@ -59,7 +61,7 @@
     margin-bottom: 8px;
     background: none;
     border: none;
-    color: #ffffff;
+    color: var(--settings-sidebar-text-color);
     text-align: left;
     cursor: pointer;
     border-radius: 4px;
@@ -67,11 +69,11 @@
   }
   
   .sidebar-button.active {
-    background-color: #3a3a3a;
+    background-color: var(--settings-sidebar-button-active-background-color);
   }
   
   .sidebar-button:hover {
-    background-color: #333333;
+    background-color: var(--settings-sidebar-button-hover-background-color);
   }
   .sidebar-button .icon {
     margin-right: 8px;
@@ -90,8 +92,8 @@
   }
   
   select, .manage-button, .archive-button, .delete-button {
-    background-color: #3a3a3a;
-    color: #ffffff;
+    background-color: var(--settings-sidebar-internal-button-background-color);
+    color: var(--settings-sidebar-internal-button-text-color);
     border: none;
     padding: 8px 12px;
     border-radius: 4px;
@@ -126,7 +128,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #3a3a3a;
+    background-color: var(--settings-sidebar-internal-slider-background-color);
     transition: .4s;
     border-radius: 24px;
   }
@@ -138,13 +140,13 @@
     width: 16px;
     left: 4px;
     bottom: 4px;
-    background-color: white;
+    background-color: var(--settings-sidebar-internal-slider-thumb-color);
     transition: .4s;
     border-radius: 50%;
   }
   
   input:checked + .slider {
-    background-color: #2196F3;
+    background-color: var(--settings-sidebar-internal-slider-checked-background-color);
   }
   
   input:checked + .slider:before {

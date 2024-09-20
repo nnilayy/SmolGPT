@@ -1,4 +1,5 @@
 /* src/Footer.css */
+@import './colors.css';
 .footer {
     background-color: var(--footer-background-color);
     color: var(--footer-text-color);
