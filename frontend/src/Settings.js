@@ -4,7 +4,7 @@ import './styles/Settings.css';
 
 // Import your subsection components
 import SettingsGeneral from './SettingsComponents/SettingsGeneral';
-import SettingsPersonalization from './SettingsComponents/SettingsPersonalization';
+import SettingsApiKeys from './SettingsComponents/SettingsApiKeys'; // Updated import
 import SettingsSpeech from './SettingsComponents/SettingsSpeech';
 import SettingsDataControls from './SettingsComponents/SettingsDataControls';
 import SettingsBuilderProfile from './SettingsComponents/SettingsBuilderProfile';
@@ -14,13 +14,9 @@ import SettingsSecurity from './SettingsComponents/SettingsSecurity';
 const Settings = ({ isOpen, toggleSettings, theme, setTheme }) => {
   const [activeSection, setActiveSection] = useState('General');
 
-  // Remove theme state from here
-  // const [theme, setTheme] = useState('System');
+  // State variables for 'General' section
   const [showCode, setShowCode] = useState(false);
   const [language, setLanguage] = useState('Auto-detect');
-
-  // State variables for 'Personalization' section
-  const [fontSize, setFontSize] = useState('Medium');
 
   // State variables for 'Speech' section
   const [voiceType, setVoiceType] = useState('Default');
@@ -52,13 +48,8 @@ const Settings = ({ isOpen, toggleSettings, theme, setTheme }) => {
             setLanguage={setLanguage}
           />
         );
-      case 'Personalization':
-        return (
-          <SettingsPersonalization
-            fontSize={fontSize}
-            setFontSize={setFontSize}
-          />
-        );
+      case 'API Keys':
+        return <SettingsApiKeys />;
       case 'Speech':
         return (
           <SettingsSpeech
@@ -102,7 +93,7 @@ const Settings = ({ isOpen, toggleSettings, theme, setTheme }) => {
   const getIconForSection = (section) => {
     const icons = {
       'General': '️',
-      'Personalization': '',
+      'API Keys': '',
       'Speech': '️',
       'Data controls': '',
       'Builder profile': '',
@@ -123,7 +114,7 @@ const Settings = ({ isOpen, toggleSettings, theme, setTheme }) => {
           <div className="settings-sidebar">
             {[
               'General',
-              'Personalization',
+              'API Keys',
               'Speech',
               'Data controls',
               'Builder profile',
@@ -132,7 +123,9 @@ const Settings = ({ isOpen, toggleSettings, theme, setTheme }) => {
             ].map((section) => (
               <button
                 key={section}
-                className={`sidebar-button ${activeSection === section ? 'active' : ''}`}
+                className={`sidebar-button ${
+                  activeSection === section ? 'active' : ''
+                }`}
                 onClick={() => setActiveSection(section)}
               >
                 <span className="icon">{getIconForSection(section)}</span> {section}

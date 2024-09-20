@@ -1,0 +1,86 @@
+/* src/SettingsComponents/SettingsApiKeys.css */
+@import './colors.css';
+
+.api-keys-container {
+  max-height: 400px; /* Adjust as needed */
+  overflow-y: auto;
+  padding-right: 10px; /* Space for scrollbar */
+}
+
+.api-key-item {
+  margin-bottom: 20px;
+}
+
+.api-key-name {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: var(--settings-sidebar-text-color);
+}
+
+.api-key-input-container {
+  display: flex;
+  align-items: center;
+}
+
+.api-key-input {
+  flex: 1;
+  padding: 8px;
+  border: 2px solid rgba(70, 70, 70, 0.288);
+  border-radius: 10px;
+  background-color: var(--settings-input-background-color);
+  color: var(--settings-input-text-color);
+  margin-left: 2px;
+  outline: none;
+}
+
+.api-key-input:focus {
+  border: 2px solid rgb(91, 91, 91);
+}
+
+/* Remove button styles since we're replacing them with images */
+.toggle-visibility-button,
+.copy-button {
+  display: none;
+}
+
+/* Icon button styles */
+.icon-button {
+  width: 30px; /* Adjust size as needed */
+  height: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+  filter: invert(1);
+  opacity: 0.5; /* Optional default opacity */
+  transition: opacity 0.3s, filter 0.3s ease;
+}
+
+.icon-button:hover {
+  opacity: 1; /* Optional hover effect */
+}
+.icon-button:active {
+    filter: invert(1) drop-shadow(0 0 10px white);
+  }
+
+.visibility-icon {
+    height: 30px;
+    width: 30px;
+}
+
+.copy-icon {
+  /* Additional styles for copy icon if needed */
+}
+
+/* Scrollbar styles */
+.api-keys-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.api-keys-container::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-color);
+}
+
+.api-keys-container::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-color);
+  border-radius: 3px;
+}

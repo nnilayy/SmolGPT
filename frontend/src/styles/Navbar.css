@@ -31,10 +31,15 @@
     height: 40px;
     border-radius: 50%;
     background-color: var(--navbar-profile-photo-background-color);
-    border: 2px solid var(--navbar-profile-photo-border-color);
+    border: 2px solid transparent;
     /* Replace the background-color with an image for the actual profile photo */
     /* background-image: url('path_to_profile_photo.jpg'); */
     background-size: cover;
     background-position: center;
+    transition: border 0.3s ease;
+  }
+
+  .profile-photo:hover {
+    border: 2px solid var(--navbar-profile-photo-border-color);    
   }
   
