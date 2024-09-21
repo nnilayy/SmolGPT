@@ -4,6 +4,7 @@ import axios from 'axios';
 import FileUploader from './FileUploader';
 import submitIcon from './icons/submit-arrow.png';
 import uploadIcon from './icons/upload.png';
+import aiIcon from './icons/ai-star.png';
 import './styles/Chat.css';
 
 function Chat() {
@@ -160,9 +161,6 @@ function Chat() {
 
   return (
     <div className="chat-container">
-      {isDragging && (
-        <div className="drag-overlay">Drop files here</div>
-      )}
       <div className="messages-container">
         {messages.map((msg, index) => (
           <div
@@ -190,7 +188,13 @@ function Chat() {
               </>
             ) : (
               <>
-                <div className="message-circle message-circle-ai" />
+                <div className="message-circle message-circle-ai">
+                  <img
+                    src={aiIcon} // Replace with your icon path
+                    alt="AI Icon"
+                    className="ai-icon" // Optional: Add a class for styling
+                  />
+                </div>
                 <div className="message-content message-ai">
                   {msg.text}
                 </div>

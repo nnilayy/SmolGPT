@@ -52,8 +52,22 @@
   }
   
   .message-circle-ai {
-    background-color: var(--message-circle-ai-background-color);
-    margin-right: 10px;
+    width: 30px; /* Adjust size as needed */
+    height: 30px; /* Adjust size as needed */
+    border-radius: 50%; /* Make it circular */
+    background-color: var(--message-circle-ai-background-color); /* Background color for the circle */
+    display: flex;
+    padding: 1px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px; /* Space between the icon and message text */
+  }
+  
+  /* Style for the AI icon */
+  .ai-icon {
+    width: 30px; /* Size of the icon */
+    height: 30px; /* Size of the icon */
+    filter: var(--message-circle-ai-icon-color);/* Invert the color and add a shadow */
   }
   
   .message-content {
@@ -63,6 +77,7 @@
     overflow-wrap: break-word;
     white-space: pre-wrap;
     padding: 10px 15px;
+    font-size: 14px;
     border-radius: 15px;
   }
   
@@ -118,7 +133,7 @@
   .upload-icon{
     width: 35px;
     height: 25px;
-    filter: invert(1);
+    filter: var(--upload-icon-color);
     opacity: 0.7;
     border-radius: 50%;
     transition: opacity 0.3s, filter 0.3s;
@@ -130,16 +145,16 @@
   .upload-icon:hover{
     opacity: 1;
     cursor: pointer;
-    filter: invert(1) drop-shadow(0 0 20px white);
+    filter: var(--upload-icon-color-hover);
   }
 
   .submit-icon{
-    height: 35px;
-    height: 35px;
-    filter: invert(1);
+    height: 30px;
+    height: 30px;
+    filter: var(--submit-icon-color);
     cursor: pointer;
     opacity: 0.7;
-    background-color: rgba(0, 0, 0, 0.283);
+    background-color: var(--submit-icon-background-color);
     border-radius: 50%;
     margin-right: 5px;
     transition: opacity 0.3s, filter 0.3s;
@@ -147,7 +162,7 @@
 
   .submit-icon:hover{
     opacity: 1;
-    filter: invert(1) drop-shadow(0 0 20px white);
+    filter: var(--submit-icon-color-hover);
   }
   
   .input-container-upload-button {

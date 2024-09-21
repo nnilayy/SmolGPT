@@ -5,9 +5,11 @@ from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
 import shutil
 import os
-import chat  # Assuming you have a module named 'chat' with 'get_ai_response' function
+from chat_langchain import ChatHandler
 
 app = FastAPI()
+
+chathandler = ChatHandler()
 
 # Allow CORS for frontend communication
 app.add_middleware(
@@ -70,7 +72,7 @@ class ChatRequest(BaseModel):
 def chat_endpoint(request: ChatRequest):
     user_message = request.message
     user_files = request.files  # List of uploaded filenames
-    ai_response = chat.get_ai_response(user_message)
+    ai_response = chathandler.chat(user_message)
     return {"response": ai_response}
 
 # Upload endpoint
