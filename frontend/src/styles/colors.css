@@ -105,7 +105,7 @@
     --upload-icon-color: invert(0.3);
     --upload-icon-color-hover: invert(0.3) drop-shadow(0 0 20px rgb(127, 127, 127));
 
-    --input-container-background-color: #e0e0e0;
+    --input-container-background-color: #e2e2e279;
     --input-container-textarea-border-color: transparent;
     --input-container-textarea-background-color: transparent;
     --input-container-textarea-text-color: black;
