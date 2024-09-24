@@ -99,7 +99,7 @@ class ChatHandler:
 
         # Instantiate the memory and prompt
         self.memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-        self.prompt = hub.pull("hwchase17/react")
+        self.prompt = hub.pull("hwchase17/react-chat")
 
         # Instantiate the agent and agent executor
         self.agent = create_react_agent(llm=self.llm, tools=self.tools, prompt=self.prompt)
