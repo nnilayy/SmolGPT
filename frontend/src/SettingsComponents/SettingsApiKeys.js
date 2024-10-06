@@ -5,6 +5,7 @@ import '../styles/SettingsApiKeys.css';
 import CopyToClipboard from '../icons/copy-to-clipboard.png';
 import EyeOpenIcon from '../icons/eye-open.png';
 import EyeClosedIcon from '../icons/eye-close.png';
+import TickIcon from '../icons/tickicon.png'; // Import the tick icon
 
 const SettingsApiKeys = () => {
   const [apiKeys, setApiKeys] = useState([]);
@@ -21,6 +22,7 @@ const SettingsApiKeys = () => {
               name: key.name || `API Key ${index + 1}`,
               value: key.value || '',
               hidden: true,
+              copied: false, // Add copied state
             }))
           );
         } else {
@@ -30,6 +32,7 @@ const SettingsApiKeys = () => {
               name: `API Key ${index + 1}`,
               value: '',
               hidden: true,
+              copied: false, // Add copied state
             }))
           );
         }
@@ -42,6 +45,7 @@ const SettingsApiKeys = () => {
             name: `API Key ${index + 1}`,
             value: '',
             hidden: true,
+            copied: false, // Add copied state
           }))
         );
       });
@@ -63,11 +67,30 @@ const SettingsApiKeys = () => {
     );
   };
 
-  const copyToClipboard = (value) => {
+  const copyToClipboard = (index) => {
+    const value = apiKeys[index].value;
     if (value) {
-      navigator.clipboard.writeText(value).catch((err) => {
-        console.error('Could not copy text: ', err);
-      });
+      navigator.clipboard
+        .writeText(value)
+        .then(() => {
+          // Set copied to true for the clicked key
+          setApiKeys((prevKeys) =>
+            prevKeys.map((key, idx) =>
+              idx === index ? { ...key, copied: true } : key
+            )
+          );
+          // Reset copied status after 1.5 seconds
+          setTimeout(() => {
+            setApiKeys((prevKeys) =>
+              prevKeys.map((key, idx) =>
+                idx === index ? { ...key, copied: false } : key
+              )
+            );
+          }, 1500); // 1500 milliseconds = 1.5 seconds
+        })
+        .catch((err) => {
+          console.error('Could not copy text: ', err);
+        });
     }
   };
 
@@ -103,16 +126,18 @@ const SettingsApiKeys = () => {
               onClick={() => toggleVisibility(index)}
             />
             <img
-              src={CopyToClipboard}
-              alt="Copy API Key"
+              src={key.copied ? TickIcon : CopyToClipboard} // Change icon based on copied state
+              alt={key.copied ? 'Copied' : 'Copy API Key'}
               className="icon-button copy-icon"
-              onClick={() => copyToClipboard(key.value)}
+              onClick={() => copyToClipboard(index)}
             />
           </div>
         </div>
       ))}
-      <div className='save-button-key-container'>
-        <button className="save-button" onClick={saveApiKeys}>Save</button>
+      <div className="save-button-key-container">
+        <button className="save-button" onClick={saveApiKeys}>
+          Save
+        </button>
       </div>
     </div>
   );

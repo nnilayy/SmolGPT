@@ -104,3 +104,9 @@
   justify-content: flex-end;
   padding-right: 10px;
 }
+
+.copy-icon[src$="tickicon.png"] {
+  /* Styles specific to the tick icon */
+  filter: none; /* If you want to remove any filters applied to the copy icon */
+  opacity: 1;   /* Ensure the tick icon is fully opaque */
+}
