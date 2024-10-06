@@ -111,9 +111,9 @@ const SettingsApiKeys = () => {
           </div>
         </div>
       ))}
-      <button className="save-button" onClick={saveApiKeys}>
-        Save
-      </button>
+      <div className='save-button-key-container'>
+        <button className="save-button" onClick={saveApiKeys}>Save</button>
+      </div>
     </div>
   );
 };

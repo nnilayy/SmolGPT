@@ -5,13 +5,13 @@
   /* padding: 20px; Add some padding if needed */
 }
 
-.setting-item {
+.setting-models-item {
   display: block;
   width: 100%;
   margin-bottom: 30px; /* Add space between items */
 }
 
-.setting-title {
+.setting-models-title {
   margin-bottom: 8px;
   font-weight: 100;
   color: #cdcdcd; /* Light gray text */

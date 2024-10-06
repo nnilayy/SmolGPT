@@ -253,8 +253,8 @@ const SettingsModels = () => {
 
   return (
     <div className="settings-models-container">
-      <div className="setting-item">
-        <h3 className="setting-title">Select Model Provider</h3>
+      <div className="setting-models-item">
+        <h3 className="setting-models-title">Select Model Provider</h3>
         <NewDropdown
           options={companyOptions}
           selectedOption={selectedCompany}
@@ -266,8 +266,8 @@ const SettingsModels = () => {
           isDisabled={false}
         />
       </div>
-      <div className="setting-item">
-        <h3 className="setting-title">Select Model Name</h3>
+      <div className="setting-models-item">
+        <h3 className="setting-models-title">Select Model Name</h3>
         <NewDropdown
           options={modelOptions}
           selectedOption={selectedModel}

@@ -98,3 +98,9 @@
   background-color: var(--scrollbar-thumb-color);
   border-radius: 3px;
 }
+
+.save-button-key-container{
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
