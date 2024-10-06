@@ -6,8 +6,6 @@ import submitIcon from './icons/submit-arrow.png';
 import uploadIcon from './icons/upload.png';
 import aiIcon from './icons/ai-star.png';
 import './styles/Chat.css';
-
-// Import marked and DOMPurify
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 
@@ -18,6 +16,7 @@ function Chat() {
   const [input, setInput] = useState('');
   const [files, setFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [isWaitingForResponse, setIsWaitingForResponse] = useState(false); // New state
 
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
@@ -112,7 +111,9 @@ function Chat() {
   }, [handleFilesSelected]);
 
   const handleSend = async () => {
+    if (isWaitingForResponse) return; // Prevent sending if waiting for response
     if (input.trim() !== '' || files.length > 0) {
+      setIsWaitingForResponse(true); // Set to true when starting to send
       try {
         // Upload files first
         let uploadedFiles = [];
@@ -166,11 +167,17 @@ function Chat() {
           isHTML: false,
         };
         setMessages((prevMessages) => [...prevMessages, errorMessage]);
+      } finally {
+        setIsWaitingForResponse(false); // Set back to false after response or error
       }
     }
   };
 
   const handleKeyPress = (e) => {
+    if (isWaitingForResponse) {
+      e.preventDefault();
+      return;
+    }
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSend();
@@ -179,6 +186,11 @@ function Chat() {
 
   return (
     <div className="chat-container">
+        {isDragging && (
+          <div className="drag-overlay">
+            <div>Drop your files here</div>
+        </div>
+      )}
       <div className="messages-container">
         {messages.map((msg, index) => (
           <div
@@ -226,6 +238,21 @@ function Chat() {
             )}
           </div>
         ))}
+        {isWaitingForResponse && (
+          <div className="message-row message-row-ai">
+            <div className="message-circle message-circle-ai">
+              <img
+                src={aiIcon}
+                alt="AI Icon"
+                className="ai-icon"
+              />
+            </div>
+            <div className="message-content message-ai">
+              <em></em>
+            </div>
+            <div className="message-spacer" />
+          </div>
+        )}
         <div ref={messagesEndRef} />
       </div>
 
@@ -253,12 +280,13 @@ function Chat() {
               adjustTextareaHeight();
             }}
             onKeyDown={handleKeyPress}
+            disabled={isWaitingForResponse} // Disable when waiting for response
           />
           <img
             src={submitIcon}
             alt="Send"
-            onClick={handleSend}
-            className="submit-icon"
+            onClick={!isWaitingForResponse ? handleSend : null} // Prevent click when waiting
+            className={`submit-icon ${isWaitingForResponse ? 'disabled' : ''}`} // Add disabled class
           />
         </div>
         <input

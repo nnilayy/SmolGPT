@@ -227,3 +227,14 @@
   .message-content em {
     font-style: italic;
   }
+  
+  .submit-icon.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .loading-indicator {
+    text-align: center;
+    margin: 10px;
+    color: #888;
+  }
+  
