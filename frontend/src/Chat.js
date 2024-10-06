@@ -4,6 +4,7 @@ import axios from 'axios';
 import FileUploader from './FileUploader';
 import submitIcon from './icons/submit-arrow.png';
 import uploadIcon from './icons/upload.png';
+import micIcon from './icons/microphone.png'; // Import the microphone icon
 import aiIcon from './icons/ai-star.png';
 import './styles/Chat.css';
 import { marked } from 'marked';
@@ -16,26 +17,86 @@ function Chat() {
   const [input, setInput] = useState('');
   const [files, setFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
-  const [isWaitingForResponse, setIsWaitingForResponse] = useState(false); // New state
+  const [isWaitingForResponse, setIsWaitingForResponse] = useState(false);
+  const [isListening, setIsListening] = useState(false); // For speech recognition
 
   const messagesEndRef = useRef(null);
   const textareaRef = useRef(null);
   const fileInputRef = useRef(null);
   const dragCounter = useRef(0);
+  const recognitionRef = useRef(null); // For speech recognition
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const isSpeechRecognitionSupported =
+    'webkitSpeechRecognition' in window || 'SpeechRecognition' in window;
 
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
     if (textarea) {
       textarea.style.height = '20px';
       textarea.style.height = `${Math.min(textarea.scrollHeight, 100)}px`;
+    }
+  };
+
+  // Speech Recognition Setup
+  useEffect(() => {
+    if (!isSpeechRecognitionSupported) {
+      console.error('Speech recognition not supported in this browser.');
+      return;
+    }
+
+    const SpeechRecognition =
+      window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    const recognition = new SpeechRecognition();
+    recognitionRef.current = recognition;
+    recognition.lang = 'en-US';
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    recognition.onresult = (event) => {
+      const speechToText = event.results[0][0].transcript;
+      setInput((prevInput) => `${prevInput} ${speechToText}`.trim());
+      adjustTextareaHeight();
+    };
+
+    recognition.onstart = () => {
+      setIsListening(true);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
+
+    recognition.onerror = (event) => {
+      console.error('Speech recognition error', event.error);
+      setIsListening(false);
+      if (event.error === 'not-allowed') {
+        alert('Microphone access is denied. Please enable it in your browser settings.');
+      } else if (event.error === 'no-speech') {
+        alert('No speech was detected. Please try again.');
+      } else {
+        alert(`Speech recognition error: ${event.error}`);
+      }
+    };
+  }, [isSpeechRecognitionSupported]);
+
+  const handleMicClick = () => {
+    if (isListening) {
+      recognitionRef.current.stop();
+    } else {
+      try {
+        recognitionRef.current.start();
+      } catch (error) {
+        console.error('Error starting speech recognition:', error);
+      }
     }
   };
 
@@ -186,9 +247,9 @@ function Chat() {
 
   return (
     <div className="chat-container">
-        {isDragging && (
-          <div className="drag-overlay">
-            <div>Drop your files here</div>
+      {isDragging && (
+        <div className="drag-overlay">
+          <div>Drop your files here</div>
         </div>
       )}
       <div className="messages-container">
@@ -219,11 +280,7 @@ function Chat() {
             ) : (
               <>
                 <div className="message-circle message-circle-ai">
-                  <img
-                    src={aiIcon}
-                    alt="AI Icon"
-                    className="ai-icon"
-                  />
+                  <img src={aiIcon} alt="AI Icon" className="ai-icon" />
                 </div>
                 <div
                   className="message-content message-ai"
@@ -241,14 +298,10 @@ function Chat() {
         {isWaitingForResponse && (
           <div className="message-row message-row-ai">
             <div className="message-circle message-circle-ai">
-              <img
-                src={aiIcon}
-                alt="AI Icon"
-                className="ai-icon"
-              />
+              <img src={aiIcon} alt="AI Icon" className="ai-icon" />
             </div>
             <div className="message-content message-ai">
-              <em></em>
+              <em>AI is typing...</em>
             </div>
             <div className="message-spacer" />
           </div>
@@ -280,13 +333,21 @@ function Chat() {
               adjustTextareaHeight();
             }}
             onKeyDown={handleKeyPress}
-            disabled={isWaitingForResponse} // Disable when waiting for response
+            disabled={isWaitingForResponse}
           />
+          {isSpeechRecognitionSupported && (
+            <img
+              src={micIcon}
+              alt="Speak"
+              onClick={handleMicClick}
+              className={`mic-icon ${isListening ? 'active' : ''}`}
+            />
+          )}
           <img
             src={submitIcon}
             alt="Send"
-            onClick={!isWaitingForResponse ? handleSend : null} // Prevent click when waiting
-            className={`submit-icon ${isWaitingForResponse ? 'disabled' : ''}`} // Add disabled class
+            onClick={!isWaitingForResponse ? handleSend : null}
+            className={`submit-icon ${isWaitingForResponse ? 'disabled' : ''}`}
           />
         </div>
         <input

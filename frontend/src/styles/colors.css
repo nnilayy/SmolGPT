@@ -68,6 +68,10 @@
     --settings-api-keys-copy-to-clipboard-color-active: invert(1) drop-shadow(0 0 50px rgb(255, 255, 255));
     --settings-api-keys-input-border-color: #56565667;
     --settings-api-keys-input-border-color-focus: #cccccc;
+
+    --mic-icon-color: invert(1);
+    --mic-icon-color-hover: invert(1) drop-shadow(0 0 20px white);
+    --mic-icon-active-color: invert(1) drop-shadow(0 0 20px red);
 }
 
 .light-theme {
@@ -139,6 +143,10 @@
     --settings-api-keys-copy-to-clipboard-color-active: invert(0) drop-shadow(0 0 10px black);
     --settings-api-keys-input-border-color: #d5d5d5c2;
     --settings-api-keys-input-border-color-focus: #868686;
+
+    --mic-icon-color: invert(0.3);
+    --mic-icon-color-hover: invert(0.3) drop-shadow(0 0 20px gray);
+    --mic-icon-active-color: invert(0.3) drop-shadow(0 0 20px red);
 }
 
 /* Dark Theme */
@@ -211,4 +219,9 @@
     --settings-api-keys-copy-to-clipboard-color-active: invert(1) drop-shadow(0 0 50px rgb(255, 255, 255));
     --settings-api-keys-input-border-color: #56565667;
     --settings-api-keys-input-border-color-focus: #cccccc;
+
+    --mic-icon-color: invert(1);
+    --mic-icon-color-hover: invert(1) drop-shadow(0 0 20px white);
+    --mic-icon-active-color: invert(1) drop-shadow(0 0 20px red);
+
 }
