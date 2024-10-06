@@ -41,7 +41,7 @@ function Chat() {
     const textarea = textareaRef.current;
     if (textarea) {
       textarea.style.height = '20px';
-      textarea.style.height = `${Math.min(textarea.scrollHeight, 100)}px`;
+      textarea.style.height = `${Math.min(textarea.scrollHeight-20, 100)}px`;
     }
   };
 

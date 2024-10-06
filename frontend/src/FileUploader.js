@@ -8,8 +8,12 @@ function FileUploader({ onFilesSelected, onRemoveFile, files }) {
       <div className="file-list">
         {files.map((file, index) => (
           <div key={index} className="file-item">
+            <div className='file-name-container'>
             <span className="file-name">{file.name}</span>
+            </div>
+            <div className='remove-file-container'>
             <button onClick={() => onRemoveFile(index)} className="remove-file">×</button>
+            </div>
           </div>
         ))}
       </div>

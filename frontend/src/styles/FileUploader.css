@@ -27,8 +27,6 @@
   gap: 10px;
 }
 
-
-
 .file-list {
   display: flex;
   /* padding: 0px; */
@@ -39,22 +37,24 @@
 .file-item {
   display: flex;
   align-items: center;
-  background-color: rgba(58, 58, 58, 0.284);
+  justify-content: space-evenly;
+  background-color: rgba(122, 119, 119, 0.394);
   border: 1px solid rgba(151, 151, 151, 0.603);
   border-radius: 10px;
-  padding: 10px 5px;
   gap: 5px;
   color: white;
-  /* width: 100%; */
-  /* height: 40px; */
+  padding-right: 5px;
+  backdrop-filter: blur(10px);
 }
 
 .file-name {
   white-space: nowrap;
-  /* overflow: hidden; */
-  /* text-overflow: ellipsis; */
-  /* max-width: 150px; */
   margin-right: 10px;
+}
+.file-name-container{
+  background-color: rgba(61, 214, 84, 0.396);
+  padding: 10px 6px 10px 10px;
+  border-radius: 9px 0px 0px 9px;
 }
 
 .remove-file {
