@@ -207,3 +207,23 @@
 
   }
   
+  .message-content p {
+    margin: 0 0 -1em;
+  }
+  .message-content ul {
+    list-style-type: disc;
+    margin: 0 0em -2em;
+  }
+  .message-content ol {
+    margin: 0em;
+  }
+
+  .message-content li {
+    margin: 0.2em;
+  }
+  .message-content strong {
+    font-weight: bold;
+  }
+  .message-content em {
+    font-style: italic;
+  }

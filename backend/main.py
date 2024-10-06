@@ -9,7 +9,17 @@ from chat_langchain import ChatHandler
 
 app = FastAPI()
 
-chathandler = ChatHandler()
+
+chathandler = ChatHandler(ChatModel='ChatGoogleGenerativeAI', model_name='gemini-1.5-pro')
+# In-memory storage for model settings
+model_settings = {
+    "ChatClass": None,
+    "model_api_name": None
+}
+
+# Initialize chathandler with default settings
+# You may provide default values or handle None values within ChatHandler
+# chathandler = ChatHandler()
 
 # Allow CORS for frontend communication
 app.add_middleware(
@@ -30,6 +40,27 @@ messages = []
 
 # In-memory storage for API keys
 api_keys = []
+
+class ModelSettings(BaseModel):
+    ChatClass: str
+    model_api_name: str
+
+# Endpoint to save model settings
+@app.post("/save_model_settings")
+def save_model_settings(settings: ModelSettings):
+    global model_settings, chathandler
+    model_settings['ChatClass'] = settings.ChatClass
+    model_settings['model_api_name'] = settings.model_api_name
+    print(f"Received model settings: {model_settings}")
+
+    # Re-initialize chathandler with new model settings
+    chathandler = ChatHandler(ChatModel=settings.ChatClass, model_name=settings.model_api_name)
+    return {"status": "Model settings saved successfully"}
+
+# Endpoint to retrieve model settings
+@app.get("/get_model_settings")
+def get_model_settings():
+    return model_settings
 
 @app.get("/")
 def read_root():

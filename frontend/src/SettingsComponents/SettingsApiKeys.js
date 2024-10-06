@@ -12,7 +12,7 @@ const SettingsApiKeys = () => {
   useEffect(() => {
     // Fetch API keys from the backend when the component mounts
     axios
-      .get('http://localhost:8000/get_api_keys')
+      .get('http://localhost:8080/get_api_keys')
       .then((response) => {
         if (response.data && response.data.length > 0) {
           // Update the apiKeys state with the data from the backend
@@ -74,7 +74,7 @@ const SettingsApiKeys = () => {
   const saveApiKeys = () => {
     // Send the API keys to the backend
     axios
-      .post('http://localhost:8000/save_api_keys', apiKeys)
+      .post('http://localhost:8080/save_api_keys', apiKeys)
       .then((response) => {
         alert('API Keys saved on backend successfully.');
       })

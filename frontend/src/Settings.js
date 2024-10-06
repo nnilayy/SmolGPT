@@ -10,6 +10,7 @@ import SettingsDataControls from './SettingsComponents/SettingsDataControls';
 import SettingsBuilderProfile from './SettingsComponents/SettingsBuilderProfile';
 import SettingsConnectedApps from './SettingsComponents/SettingsConnectedApps';
 import SettingsSecurity from './SettingsComponents/SettingsSecurity';
+import SettingsModels from './SettingsComponents/SettingsModels';
 
 const Settings = ({ isOpen, toggleSettings, theme, setTheme }) => {
   const [activeSection, setActiveSection] = useState('General');
@@ -50,6 +51,8 @@ const Settings = ({ isOpen, toggleSettings, theme, setTheme }) => {
         );
       case 'API Keys':
         return <SettingsApiKeys />;
+      case 'Models':
+        return <SettingsModels />; // Add this case
       case 'Speech':
         return (
           <SettingsSpeech
@@ -94,6 +97,7 @@ const Settings = ({ isOpen, toggleSettings, theme, setTheme }) => {
     const icons = {
       'General': '️',
       'API Keys': '',
+      'Models': '',
       'Speech': '️',
       'Data controls': '',
       'Builder profile': '',
@@ -115,6 +119,7 @@ const Settings = ({ isOpen, toggleSettings, theme, setTheme }) => {
             {[
               'General',
               'API Keys',
+              'Models', 
               'Speech',
               'Data controls',
               'Builder profile',

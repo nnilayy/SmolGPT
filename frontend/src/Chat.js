@@ -7,6 +7,10 @@ import uploadIcon from './icons/upload.png';
 import aiIcon from './icons/ai-star.png';
 import './styles/Chat.css';
 
+// Import marked and DOMPurify
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
+
 function Chat() {
   const [messages, setMessages] = useState([
     { sender: 'ai', text: 'Hello! How can I assist you today?' },
@@ -37,10 +41,13 @@ function Chat() {
   };
 
   const handleFilesSelected = useCallback((selectedFiles) => {
-    setFiles(prevFiles => {
+    setFiles((prevFiles) => {
       const updatedFiles = [...prevFiles];
-      selectedFiles.forEach(newFile => {
-        if (!prevFiles.some(file => file.name === newFile.name) && updatedFiles.length < 10) {
+      selectedFiles.forEach((newFile) => {
+        if (
+          !prevFiles.some((file) => file.name === newFile.name) &&
+          updatedFiles.length < 10
+        ) {
           updatedFiles.push(newFile);
         }
       });
@@ -49,7 +56,7 @@ function Chat() {
   }, []);
 
   const handleRemoveFile = useCallback((index) => {
-    setFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
+    setFiles((prevFiles) => prevFiles.filter((_, i) => i !== index));
   }, []);
 
   const handleFileChange = (event) => {
@@ -115,11 +122,15 @@ function Chat() {
             uploadFormData.append('files', file); // Append files with the same key 'files'
           });
 
-          const uploadResponse = await axios.post('http://localhost:8000/upload', uploadFormData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
+          const uploadResponse = await axios.post(
+            'http://localhost:8080/upload',
+            uploadFormData,
+            {
+              headers: {
+                'Content-Type': 'multipart/form-data',
+              },
+            }
+          );
 
           uploadedFiles = uploadResponse.data.filenames;
         }
@@ -134,18 +145,25 @@ function Chat() {
         }
 
         // Send text and filenames to /chat endpoint
-        const chatResponse = await axios.post('http://localhost:8000/chat', {
+        const chatResponse = await axios.post('http://localhost:8080/chat', {
           message: input,
           files: uploadedFiles,
         });
 
-        const aiMessage = { sender: 'ai', text: chatResponse.data.response };
+        const aiMessageText = chatResponse.data.response;
+
+        // Process markdown in AI response
+        const htmlContent = marked.parse(aiMessageText);
+        const cleanHTML = DOMPurify.sanitize(htmlContent);
+
+        const aiMessage = { sender: 'ai', text: cleanHTML, isHTML: true };
         setMessages((prevMessages) => [...prevMessages, aiMessage]);
       } catch (error) {
         console.error('Error fetching AI response:', error);
         const errorMessage = {
           sender: 'ai',
           text: 'Sorry, there was an error processing your message.',
+          isHTML: false,
         };
         setMessages((prevMessages) => [...prevMessages, errorMessage]);
       }
@@ -190,14 +208,19 @@ function Chat() {
               <>
                 <div className="message-circle message-circle-ai">
                   <img
-                    src={aiIcon} // Replace with your icon path
+                    src={aiIcon}
                     alt="AI Icon"
-                    className="ai-icon" // Optional: Add a class for styling
+                    className="ai-icon"
                   />
                 </div>
-                <div className="message-content message-ai">
-                  {msg.text}
-                </div>
+                <div
+                  className="message-content message-ai"
+                  dangerouslySetInnerHTML={
+                    msg.isHTML
+                      ? { __html: msg.text }
+                      : { __html: DOMPurify.sanitize(marked.parse(msg.text)) }
+                  }
+                />
                 <div className="message-spacer" />
               </>
             )}

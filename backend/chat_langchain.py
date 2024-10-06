@@ -20,6 +20,12 @@ from main_logic.helper_classes.scan_documents import ScanDocuments
 from main_logic.tools.calculator_tool import CalculatorTool
 from main_logic.tools.weather_time_tool import WeatherTimeTool
 
+from langchain_groq import ChatGroq
+from langchain_openai import ChatOpenAI
+from langchain_cohere import ChatCohere
+from langchain_anthropic import ChatAnthropic
+from langchain_mistralai import ChatMistralAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 load_dotenv()  
 warnings.filterwarnings("ignore", category=PydanticDeprecatedSince20)
@@ -83,12 +89,29 @@ warnings.filterwarnings("ignore", category=PydanticDeprecatedSince20)
 
 
 class ChatHandler:
-    def __init__(self):
+    def __init__(self, ChatModel, model_name):
         # Instantiate the LLM and Embeddings
-        self.llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro")
+        # self.llm = ChatGoogleGenerativeAI(model="gemini-1.5-pro")
+        # self.llm = ChatModel(model=model)
         # self.llm = ChatGroq(model="mixtral-8x7b-32768")
         self.embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+
+        if ChatModel == 'ChatOpenAI':
+            self.llm = ChatOpenAI(model=model_name)
+        elif ChatModel == 'ChatCohere':
+            self.llm = ChatCohere(model=model_name)
+        elif ChatModel == 'ChatAnthropic':
+            self.llm = ChatAnthropic(model=model_name)
+        elif ChatModel == 'ChatMistralAI':
+            self.llm = ChatMistralAI(model=model_name)
+        elif ChatModel == 'ChatGoogleGenerativeAI':
+            self.llm = ChatGoogleGenerativeAI(model=model_name)
+        elif ChatModel == 'ChatGroq':
+            self.llm = ChatGroq(model=model_name)
+
         self.model = Model(self.llm, self.embeddings)
+        
+        
 
         # Instantiate the tools
         self.tools = [
