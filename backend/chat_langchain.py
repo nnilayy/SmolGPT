@@ -141,7 +141,7 @@ class ChatHandler:
 
     def chat(self, user_message):
         try:
-            return self.agent_executor.invoke({"input":user_message})['output'].strip("```")
+            return self.agent_executor.invoke({"input":user_message})['output'].strip("```").strip("**")
         except Exception as e:
             print(f"Error getting AI response: {e}")
             return "Sorry, I'm unable to process your request at the moment."

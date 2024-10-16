@@ -89,25 +89,27 @@ class WeatherTimeTool:
 
         RETURN FORMAT
         Once the Country, City/State/Prefecture, information-type has been identified, return all three in the following format.
-        {{'country': country, 'sub-location': city/state/prefecture, 'information-type': weather/worldclock}}
+        ```python\n{{'country': country, 'sub-location': city/state/prefecture, 'information-type': weather/worldclock}}\n```
         Example:
         (1)"What is the time in New York right now right here",
-        {{'country':'usa', 'sub-location':'new-york', 'information-type':'worldclock'}}
+        ```python\n{{'country':'usa', 'sub-location':'new-york', 'information-type':'worldclock'}}\n```
         (2)"Yo boss, What would be the weather in United States"
-        {{'country':'usa', 'sub-location':'washington-dc', 'information-type':'weather'}}
+        ```python\n{{'country':'usa', 'sub-location':'washington-dc', 'information-type':'weather'}}\n```
         (3)"What would be the time in the other side of the world that is Tokyo"
-        {{'country':'japan', 'sub-location':'tokyo', 'information-type':'worldclock'}}
+        ```python\n{{'country':'japan', 'sub-location':'tokyo', 'information-type':'worldclock'}}\n```
         (4)"Is it cloudy right now in United Emirates"
-        {{'country':'united-arab-emirates', 'sub-location':'abu-dhabi', 'information-type':'weather'}}
+        ```python\n{{'country':'united-arab-emirates', 'sub-location':'abu-dhabi', 'information-type':'weather'}}\n```
         (5)"You bruv, what is the time in Japan right now maaann?"
-        {{'country':'japan', 'sub-location':'tokyo', 'information-type':'worldclock'}}
+        ```python\n{{'country':'japan', 'sub-location':'tokyo', 'information-type':'worldclock'}}\n```
 
         Now Return the Country, the City/State/Prefecture in the dictionary format for the given query.
         Query: {query}
         Output: 
         """ 
         output = self.model.llm.invoke(prompt)
-        string_location_dictionary = output.content.split("```json\n")[-1].split("\n")[0]
+        # print(output)
+        string_location_dictionary = output.content.split("```python\n")[-1].split("\n")[0]
+        # print(string_location_dictionary)
         self.location_dictionary = ast.literal_eval(string_location_dictionary)
         return self.location_dictionary
 
