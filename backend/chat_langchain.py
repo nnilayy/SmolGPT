@@ -19,6 +19,7 @@ from main_logic.helper_classes.scan_documents import ScanDocuments
 
 from main_logic.tools.calculator_tool import CalculatorTool
 from main_logic.tools.weather_time_tool import WeatherTimeTool
+from main_logic.tools.youtube_tool import YoutubeTool
 
 from langchain_groq import ChatGroq
 from langchain_openai import ChatOpenAI
@@ -118,6 +119,7 @@ class ChatHandler:
             TavilySearchResults(), 
             WeatherTimeTool(self.model).tool, 
             CalculatorTool().tool,
+            YoutubeTool().tool,
         ]
 
         # Instantiate the memory and prompt
