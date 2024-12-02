@@ -34,9 +34,8 @@ class ScanDocuments:
         data = loader.load_and_split()
         return data
     
-    def upload_url(self, url):
-        if "www.youtube.com" in url:
-            loader =  YoutubeLoader.from_youtube_url(url,add_video_info=True)
+    def upload_youtube_url(self, url):
+        loader =  YoutubeLoader.from_youtube_url(url,add_video_info=False)
         data = loader.load_and_split()
         return data
     
